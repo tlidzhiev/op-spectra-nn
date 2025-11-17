@@ -1,0 +1,11 @@
+dim: 2
+use_label: false
+name: unit_circle
+dtype: float64
+
+train:
+  _target_: src.dataset.unit_circle.UnitCircleDataset
+  num_samples: 50000
+  instance_transforms: ${transforms.instance_transforms.train}
+  dtype: ${dataset.dtype}
+  seed: 42

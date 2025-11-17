@@ -1,0 +1,28 @@
+hydra:
+  run:
+    dir: ${writer.log_dir}
+
+defaults:
+  - _self_
+  - dataset: circle
+  - dataloader: default
+  - transforms: default
+  - model: baseline_basis
+  - criterion: basis
+  - metrics: default
+  - optimizer: default
+  - lr_scheduler: default
+  - writer: cometml
+
+trainer:
+  log_step: 100 # batches
+  num_functions: 10
+  epoch_len: 500
+  device_tensors: ["x"] # objects
+  resume_from: null # null or path to the checkpoint dir with *.pth and config.yaml
+  from_pretrained: null # null or path to the checkpoint dir with *.pth and config.yaml
+  device: auto # device name or "auto"
+  save_period: 1 # checkpoint each save_period functions in addition to the best epoch
+  max_grad_norm: null
+  checkpoint_dir: ${writer.log_dir}/checkpoints
+  seed: 725452095520449340

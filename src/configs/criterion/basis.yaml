@@ -1,0 +1,6 @@
+_target_: src.loss.basis.BasisSetLoss
+w_orth: 1.0
+w_norm: 0.0
+w_grad: 0.0
+weight_update_strategy: adaptive
+kappa: 10.0

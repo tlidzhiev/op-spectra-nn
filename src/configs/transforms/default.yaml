@@ -1,0 +1,3 @@
+defaults:
+  - batch_transforms: default
+  - instance_transforms: default

@@ -1,0 +1,9 @@
+basis:
+  _target_: src.model.basis.BasisSet
+  model_type: baseline
+  model_cfg:
+    input_dim: ${dataset.dim}
+    hidden_dims: [200, 1000]
+    activation: relu
+    init_mode: null
+  dtype: ${dataset.dtype}
