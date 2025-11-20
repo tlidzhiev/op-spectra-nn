@@ -7,7 +7,7 @@ import torch.nn as nn
 class NoiseScheduler(nn.Module):
     def __init__(self, dataset_size: int, batch_size: int):
         super().__init__()
-        self.dataloader_size: int = dataset_size // batch_size
+        self.dataset_size: int = dataset_size
         self.batch_size: int = batch_size
         self.register_buffer('weight', torch.tensor(0.0))
 
@@ -32,7 +32,7 @@ class NoiseScheduler(nn.Module):
         self.weight.fill_(0.0)
 
     def _update_schedule(self) -> None:
-        self.weight = torch.clamp(self.weight + self.batch_size, max=self.dataloader_size)
+        self.weight = torch.clamp(self.weight + self.batch_size, max=self.dataset_size)
 
     def _get_noise(self) -> float:
-        return 1.0 / math.sqrt(max(self.weight.item(), 1.0))
+        return 1.0 / math.sqrt(self.weight.item())

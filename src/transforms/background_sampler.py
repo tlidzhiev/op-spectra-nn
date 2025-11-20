@@ -7,7 +7,7 @@ import torch.nn as nn
 class BackgroundSampler(nn.Module):
     def __init__(self, dataset_size: int, batch_size: int):
         super().__init__()
-        self.dataloader_size: int = dataset_size // batch_size
+        self.dataset_size: int = dataset_size
         self.batch_size: int = batch_size
         self.register_buffer('weight', torch.tensor(0.0))
 
@@ -28,7 +28,7 @@ class BackgroundSampler(nn.Module):
         self.weight.fill_(0.0)
 
     def _update_schedule(self) -> None:
-        self.weight = torch.clamp(self.weight + self.batch_size, max=self.dataloader_size)
+        self.weight = torch.clamp(self.weight + self.batch_size, max=self.dataset_size)
 
     @staticmethod
     def _compute_stats(x: torch.Tensor, eps: float = 1.0e-10) -> tuple[torch.Tensor, torch.Tensor]:
@@ -37,4 +37,4 @@ class BackgroundSampler(nn.Module):
         return xmean, xstd
 
     def _get_background_weight(self) -> float:
-        return 1.0 / (1.0 + math.sqrt(max(self.weight.item(), 0.0)))
+        return 1.0 / (1.0 + math.sqrt(self.weight.item()))
