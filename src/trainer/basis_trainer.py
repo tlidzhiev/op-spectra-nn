@@ -284,6 +284,7 @@ class BasisTrainer:
         """
         self.writer.add_scalar('s_pn', batch['s_pn'])
         self.writer.add_scalar('w_z', batch['w_z'])
+        plot_function(self.cfg.dataset.name, self.basis, self.writer)
 
     def _to_device(self, batch: dict[str, Any]) -> dict[str, Any]:
         """
