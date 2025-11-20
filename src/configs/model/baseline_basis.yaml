@@ -3,7 +3,7 @@ basis:
   model_type: baseline
   model_cfg:
     input_dim: ${dataset.dim}
-    hidden_dims: [200, 1000]
+    hidden_dims: [20, 1000]
     activation: relu
     init_mode: null
   dtype: ${dataset.dtype}
